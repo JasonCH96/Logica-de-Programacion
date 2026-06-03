@@ -8,8 +8,18 @@ Proyecto de Lógica de Programación
 # Estudiante: Jason Rodolfo Castro Herrera
 # ======================================================
 
-# Lista para almacenar las ventas de tours
-ventas_tours = []
+# ==========================================
+# ARREGLOS PARA ALMACENAR LAS VENTAS
+# ==========================================
+
+ids_ventas = []
+clientes = []
+tours = []
+proveedores = []
+cantidades_personas = []
+precios_venta = []
+tarifas_netas = []
+comisiones = []
 
 # Variable para controlar el menú
 opcion_menu = 0
@@ -43,23 +53,17 @@ while opcion_menu != 5:
         precio_venta = float(input("Ingrese el precio total: "))
         tarifa_neta = float(input("Ingrese la tarifa neta del proveedor: "))
 
-        # Calculo de comisión
         monto_comision = precio_venta - tarifa_neta
 
-        # Crear registro
-        venta = {
-            "ID": id_venta,
-            "Cliente": nombre_cliente,
-            "Tour": nombre_tour,
-            "Proveedor": proveedor_tour,
-            "Personas": cantidad_personas,
-            "Precio": precio_venta,
-            "TarifaNeta": tarifa_neta,
-            "Comision": monto_comision,
-        }
-
-        # Guardar en la lista
-        ventas_tours.append(venta)
+        # Guardar en los arreglos
+        ids_ventas.append(id_venta)
+        clientes.append(nombre_cliente)
+        tours.append(nombre_tour)
+        proveedores.append(proveedor_tour)
+        cantidades_personas.append(cantidad_personas)
+        precios_venta.append(precio_venta)
+        tarifas_netas.append(tarifa_neta)
+        comisiones.append(monto_comision)
 
         print("\nVenta registrada correctamente.")
 
@@ -70,20 +74,21 @@ while opcion_menu != 5:
 
         print("\n--- CONSULTA DE VENTAS ---")
 
-        if len(ventas_tours) == 0:
+        if len(ids_ventas) == 0:
+
             print("No hay ventas registradas.")
 
         else:
-            for venta in ventas_tours:
+            for i in range(len(ids_ventas)):
                 print("-----------------------------")
-                print("ID:", venta["ID"])
-                print("Cliente:", venta["Cliente"])
-                print("Tour:", venta["Tour"])
-                print("Proveedor:", venta["Proveedor"])
-                print("Personas:", venta["Personas"])
-                print("Precio:", venta["Precio"])
-                print("Tarifa Neta:", venta["TarifaNeta"])
-                print("Comisión:", venta["Comision"])
+                print("ID:", ids_ventas[i])
+                print("Cliente:", clientes[i])
+                print("Tour:", tours[i])
+                print("Proveedor:", proveedores[i])
+                print("Personas:", cantidades_personas[i])
+                print("Precio:", precios_venta[i])
+                print("Tarifa Neta:", tarifas_netas[i])
+                print("Comisión:", comisiones[i])
 
     # ==========================================
     # OPCION 3 - MODIFICAR
@@ -96,27 +101,27 @@ while opcion_menu != 5:
 
         encontrado = False
 
-        for venta in ventas_tours:
+        for i in range(len(ids_ventas)):
 
-            if venta["ID"] == id_busqueda:
+            if ids_ventas[i] == id_busqueda:
 
                 nuevo_cliente = input("Nuevo nombre del cliente: ")
                 nuevo_precio = float(input("Nuevo precio total: "))
                 nueva_tarifa = float(input("Nueva tarifa neta: "))
 
-                nueva_comision = nuevo_precio - nueva_tarifa
-
-                venta["Cliente"] = nuevo_cliente
-                venta["Precio"] = nuevo_precio
-                venta["TarifaNeta"] = nueva_tarifa
-                venta["Comision"] = nueva_comision
+                clientes[i] = nuevo_cliente
+                precios_venta[i] = nuevo_precio
+                tarifas_netas[i] = nueva_tarifa
+                comisiones[i] = nuevo_precio - nueva_tarifa
 
                 encontrado = True
 
                 print("Venta modificada correctamente.")
+                break
 
         if not encontrado:
             print("No se encontró la venta.")
+
     # ==========================================
     # OPCION 4 - BORRAR
     # ==========================================
@@ -128,11 +133,21 @@ while opcion_menu != 5:
 
         encontrado = False
 
-        for venta in ventas_tours[:]:
+        for i in range(len(ids_ventas)):
 
-            if venta["ID"] == id_eliminar:
-                ventas_tours.remove(venta)
+            if ids_ventas[i] == id_eliminar:
+
+                ids_ventas.pop(i)
+                clientes.pop(i)
+                tours.pop(i)
+                proveedores.pop(i)
+                cantidades_personas.pop(i)
+                precios_venta.pop(i)
+                tarifas_netas.pop(i)
+                comisiones.pop(i)
+
                 encontrado = True
+
                 print("Venta eliminada correctamente.")
                 break
 
